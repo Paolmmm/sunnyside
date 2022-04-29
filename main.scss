@@ -1,0 +1,633 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+
+  @media only screen and (max-width: 68em) {
+    font-size: 56.25%;
+  }
+
+  @media only screen and (max-width: 53em) {
+    font-size: 50%;
+  }
+}
+
+body {
+  line-height: 1;
+  font-weight: 400;
+  font-size: 1.8rem;
+  font-family: "Barlow", sans-serif;
+  position: relative;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+:root {
+  // PRIMARY
+  --Soft-red: hsl(7, 99%, 70%);
+  --Yellow: hsl(51, 100%, 49%);
+  // (graphic design text)
+  --Dark-desaturated-cyan: hsl(167, 40%, 24%);
+  // (photography text)
+  --Dark-blue: hsl(198, 62%, 26%);
+  // (footer)
+  --Dark-moderate-cyan: hsl(168, 34%, 41%);
+  --Light-blue: hsl(200, 100%, 62%, 0.8);
+  --Light-green: hsl(165, 46%, 73%);
+
+  // NEUTRAL
+  --Very-dark-desaturated-blue: hsl(212, 27%, 19%);
+  --Very-dark-grayish-blue: hsl(213, 9%, 39%);
+  --Dark-grayish-blue: hsl(232, 10%, 55%);
+  --Grayish-blue: hsl(210, 4%, 67%);
+  --White: hsl(0, 0%, 100%);
+}
+
+// SECTIONS
+.header {
+  height: 100vh;
+  background-image: url(images/desktop/image-header.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+
+  @media only screen and (max-width: 47em) {
+    background-image: url(images/mobile/image-header.jpg);
+  }
+
+  position: relative;
+
+  .nav {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    width: 100%;
+    height: 9rem;
+    // Non permette il menu sticky
+    // position: relative;
+
+    &__links {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      gap: 4rem;
+
+      @media only screen and (max-width: 40em) {
+        // display: none;
+        opacity: 0;
+        visibility: hidden;
+
+        position: absolute;
+        padding: 4rem 0;
+        top: -10%;
+        right: -38%;
+        min-width: 90%;
+        z-index: 1000;
+
+        flex-direction: column;
+        background-color: var(--White);
+        font-size: 2.2rem;
+        transform: scale(0.1);
+        transition: 0.2s all;
+
+        &:before {
+          content: "";
+          position: absolute;
+          width: 3rem;
+          height: 3rem;
+          top: -2.8rem;
+          right: 0;
+          background-color: var(--White);
+          clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+        }
+
+        a {
+          color: var(--Grayish-blue);
+        }
+
+        .btn--full {
+          color: var(--Very-dark-desaturated-blue);
+          background-color: var(--Yellow);
+        }
+      }
+    }
+
+    [name="checkbox"] {
+      display: none;
+    }
+
+    .checkbox-label {
+      display: none;
+
+      @media only screen and (max-width: 40em) {
+        // opacity: 1;
+        // visibility: visible;
+
+        display: block;
+        margin-left: auto;
+        width: 3rem;
+        height: 0.4rem;
+        background-color: var(--White);
+        opacity: 0.7;
+        border-radius: 100px;
+        position: relative;
+        z-index: 100;
+        transition: 0.2s background-color;
+
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0.8rem;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          background-color: var(--White);
+          border-radius: 100px;
+          transition: 0.4s all;
+        }
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: -0.8rem;
+          right: 0;
+          width: 3rem;
+          height: 0.4rem;
+          background-color: var(--White);
+          border-radius: 100px;
+          transition: 0.4s all;
+        }
+      }
+    }
+  }
+
+  .hero {
+    &__title {
+      color: var(--White);
+      text-transform: uppercase;
+      text-align: center;
+      letter-spacing: 6px;
+      margin: 14vh 0 10vh 0;
+      font-size: 5.6rem;
+    }
+
+    &__arrow-down {
+      width: 4rem;
+      display: block;
+      margin: 0 auto;
+      animation: arrowInf 2s infinite;
+    }
+  }
+}
+
+// // MENU FUNCTIONALITY
+[name="checkbox"]:checked {
+  & ~ .nav__links {
+    // display: flex;
+    opacity: 1;
+    visibility: visible;
+
+    transform: scale(1);
+    top: 12rem;
+    right: 5%;
+  }
+
+  // DA FINIRE
+  // & ~ .nav__links:active {
+  //   opacity: 0;
+  //   visibility: hidden;
+  // }
+
+  & ~ .checkbox-label {
+    background-color: transparent;
+  }
+
+  & ~ .checkbox-label:before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+
+  & ~ .checkbox-label:after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+}
+
+.about {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  @media only screen and (max-width: 44em) {
+    grid-template-columns: 1fr;
+  }
+
+  align-items: center;
+  // justify-items: center;
+
+  &__text {
+    justify-self: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5rem;
+
+    max-width: 45rem;
+
+    @media only screen and (max-width: 68em) {
+      max-width: 36rem;
+      gap: 3rem;
+    }
+
+    @media only screen and (max-width: 44em) {
+      &:first-child {
+        grid-row: 2;
+      }
+
+      align-items: center;
+      text-align: center;
+      min-width: 19em;
+      padding: 8rem 2rem;
+    }
+  }
+
+  &__title {
+    color: var(--Very-dark-desaturated-blue);
+    font-size: 4.2rem;
+    line-height: 1.1;
+  }
+
+  &__content {
+    color: var(--Very-dark-grayish-blue);
+    line-height: 1.6;
+  }
+
+  &__link {
+    display: inline-block;
+    color: var(--Very-dark-desaturated-blue);
+    text-transform: uppercase;
+    font-family: "Fraunces", serif;
+    position: relative;
+
+    &--yellow {
+      &::before {
+        @extend %services__link--text-decoration;
+        background-color: var(--Yellow);
+      }
+    }
+
+    &--red {
+      &::before {
+        @extend %services__link--text-decoration;
+        background-color: var(--Soft-red);
+      }
+    }
+
+    &:hover {
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__img {
+    line-height: 0;
+
+    &__content {
+      width: 100%;
+    }
+  }
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  text-align: center;
+
+  @media only screen and (max-width: 44em) {
+    grid-template-columns: 1fr;
+    height: 150rem;
+  }
+
+  div {
+    background-size: 100% auto; // WOW!!!!
+    background-position: center;
+    background-repeat: no-repeat;
+    aspect-ratio: 1.2; // WOW!!!!!
+    // aspect-ratio info: la sto utilizzando qui perchè altrimenti la background-img non verrebbe visualizzata con l'intera height, a differenza del grid della sezione sopra in cui l'altezza è dettata dal contenuto più alto (le immagini che con width:100% vanno ad estendersi mantenendo l'aspect ratio originale (che è di 1.2)) cosa che qui non succede perchè la background img fa da sfondo e non da contenuto quindi settando la background size a 100% auto (x y) viene occupata tutta la larghezza ma non l'altezza che, di nuovo, è dettata dal contenuto che qui è dato da h2 e p. Quindi, per avere lo sfondo ad altezza totale e mantenerne l'aspect ratio, va settato manualmente impostandolo, appunto, a 1.2. In questo modo non si definiscono altezze random ma si definisce comunque quest'ultima sul valore delle immagini stesse. L'alternativa sarebbe di rendere il contenuto text posizionato absolute sulle immagini che diventano il content.
+
+    @media only screen and (max-width: 44em) {
+      aspect-ratio: unset;
+      background-size: auto;
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 4rem;
+
+    @media only screen and (max-width: 68em) {
+      gap: 2rem;
+    }
+  }
+
+  h2 {
+    font-size: 3.4rem;
+  }
+
+  p {
+    max-width: 38rem;
+    line-height: 1.8;
+    margin: 0 auto 10% auto;
+
+    @media only screen and (max-width: 68em) {
+      margin: 0 auto 5% auto;
+    }
+
+    @media only screen and (max-width: 44em) {
+      margin: 0 auto 15% auto;
+    }
+  }
+
+  &__graphic-design {
+    background-image: url(images/desktop/image-graphic-design.jpg);
+
+    &__title {
+      color: var(--Dark-desaturated-cyan);
+    }
+
+    &__content {
+      color: var(--Dark-moderate-cyan);
+    }
+  }
+
+  &__photography {
+    background-image: url(images/desktop/image-photography.jpg);
+
+    &__title {
+      color: var(--Very-dark-desaturated-blue);
+    }
+
+    &__content {
+      color: var(--Dark-blue);
+    }
+  }
+}
+
+.testimonials {
+  text-align: center;
+  padding: 20rem 0;
+
+  @media only screen and (max-width: 44em) {
+    padding: 10rem 0;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    color: var(--Grayish-blue);
+    letter-spacing: 0.6rem;
+    padding: 1rem;
+    margin-bottom: 8rem;
+
+    @media only screen and (max-width: 44em) {
+      font-size: 2rem;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 3rem;
+
+    @media only screen and (max-width: 88em) {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    @media only screen and (max-width: 44em) {
+      grid-template-columns: 1fr;
+      row-gap: 8rem;
+    }
+  }
+
+  &__testimonial {
+    grid-column: span 2;
+    padding: 1rem;
+
+    &:first-child {
+      grid-column: 2 / 4;
+
+      @media only screen and (max-width: 88em) {
+        grid-column: span 2;
+      }
+    }
+  }
+
+  &__photo {
+    display: block;
+    margin: 0 auto 6rem auto;
+    border-radius: 100px;
+    height: 8rem;
+
+    @media only screen and (max-width: 44em) {
+      margin: 0 auto 3rem auto;
+    }
+  }
+
+  &__content {
+    color: var(--Very-dark-grayish-blue);
+    line-height: 1.8;
+    max-width: 35rem;
+    margin: 0 auto 8rem auto;
+
+    @media only screen and (max-width: 88em) {
+      max-width: 29rem;
+    }
+
+    @media only screen and (max-width: 44em) {
+      max-width: 33rem;
+      margin: 0 auto 4rem auto;
+    }
+  }
+
+  &__name {
+    font-family: "Fraunces", serif;
+    margin-bottom: 1.6rem;
+  }
+
+  &__job {
+    color: var(--Grayish-blue);
+  }
+}
+
+.projects {
+  // 2 modi:
+  // - grid 4 colonne e ti basta avere un div con le 4 immagini
+  // - flexbox con ogni immagine in un div, le immagini per forza settate a width: 100%
+
+  display: flex;
+
+  @media only screen and (max-width: 44em) {
+    flex-wrap: wrap;
+  }
+
+  .image {
+    line-height: 0;
+    overflow: hidden;
+    flex: 50%;
+  }
+
+  img {
+    width: 100%;
+    transition: 0.4s transform;
+
+    @media only screen and (max-width: 44em) {
+      // aspect-ratio: 1 / 1;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.footer {
+  background-color: var(--Light-green);
+
+  padding: 6rem 0;
+
+  & > * {
+    padding: 1rem;
+  }
+
+  &__logo {
+    display: block;
+    margin: 0 auto 1rem auto;
+  }
+
+  & > :not(:first-child) {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__links {
+    gap: 6rem;
+    margin-bottom: 6rem;
+  }
+
+  &__socials {
+    gap: 4rem;
+  }
+
+  &__link,
+  &__social__link {
+    color: var(--Dark-moderate-cyan);
+    transition: 0.2s color;
+
+    &:hover,
+    &:active {
+      color: var(--White);
+    }
+  }
+}
+
+// BTN
+.btn {
+  display: inline-block;
+  cursor: pointer;
+
+  &--full {
+    background-color: var(--White);
+    padding: 1.6rem 2.4rem;
+    border-radius: 100px;
+    text-transform: uppercase;
+    color: var(--Very-dark-desaturated-blue);
+    font-family: "Fraunces", serif;
+    transition: 0.2s all;
+
+    &:hover {
+      background-color: var(--Light-green);
+      color: var(--White);
+    }
+  }
+}
+
+// TYPOGRAPHY
+.heading--primary,
+.heading--secondary {
+  font-family: "Fraunces", serif;
+}
+
+// PLACEHOLDER
+%services__link--text-decoration {
+  content: "";
+  position: absolute;
+  bottom: -0.4rem;
+  left: -0.5rem;
+  width: 110%;
+  height: 1rem;
+  opacity: 0.3;
+  z-index: -1;
+  border-radius: 100px;
+  transition: 0.2s opacity;
+}
+
+// ANIMATION
+@keyframes arrowInf {
+  from {
+    transform: translate(0);
+  }
+
+  50% {
+    transform: translateY(50%);
+  }
+
+  to {
+    transform: translate(0);
+  }
+}
+
+// HELPER CLASSES
+.sticky {
+  position: fixed;
+  top: -9.01rem;
+  left: 0;
+  background-color: var(--Light-blue);
+  transition: 0.2s transform;
+
+  &:hover {
+    transform: translateY(9rem);
+  }
+}
+
+.navAddOn {
+  position: fixed;
+  top: 0;
+  left: 0;
+  // background-color: red;
+  width: 100%;
+  height: 3rem;
+
+  &:hover + nav.sticky {
+    transform: translateY(9rem);
+  }
+}
+
+// HIDDEN
+.hidden {
+  display: none;
+}
